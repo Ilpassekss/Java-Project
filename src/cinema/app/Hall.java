@@ -1,4 +1,180 @@
-package cinema.app;
 
-public class Hall {
+
+
+package cinema.app;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Scanner;
+/**
+ * Клас Зали у кінотеатрі
+ */
+public class Hall{
+    /**
+     *  rows значення кількості рядів у залі
+     */
+    private static final int rows = 3;
+
+    /**
+     * numberOfSeats значення кількості місць у кожному ряду
+     */
+    private static final int numberOfSeats = 10;
+
+    /**
+     *  hallSessionNumber значення того яка зараз сессія у залі
+     */
+    private int hallSessionNumber ;
+
+    /**
+     *  seat масив всіх крісел у залі
+     */
+    private Seat[][] seat = new Seat[rows][numberOfSeats];
+
+    /**
+     *  path шлях до файлу з зайнятими місцями у залі який визначаеться в конструкторі
+     */
+    private String path ;
+
+    public Hall(int hallSessionNumber) throws FileNotFoundException {
+        this.hallSessionNumber = hallSessionNumber;
+        switch (this.hallSessionNumber){
+            case(1):
+                path = "resourses/hall_1/hall_Session_1.txt";
+                break;
+            case(2):
+                path = "resourses/hall_1/hall_Session_2.txt";
+                break;
+            case(3):
+                path = "resourses/hall_1/hall_Session_3.txt";
+                break;
+            case(4):
+                path = "resourses/hall_1/hall_Session_4.txt";
+                break;
+            case(5):
+                path = "resourses/hall_1/hall_Session_5.txt";
+                break;
+            case(6):
+                path = "resourses/hall_1/hall_Session_6.txt";
+                break;
+        }
+        initSeats();
+    }
+
+
+    public static void main(String[]string ) throws IOException {
+        Hall hall = new Hall(1);
+        hall.setSeatBusy(1, 8);
+
+    }
+
+    /**
+     *  ініціалізація кожного сидіння в залі перед замовленням нового
+     */
+    private void initSeats() throws FileNotFoundException {
+
+        File file = new File(path);
+        if (file.length() == 0) {
+            System.out.println("Файл пуст");
+        }
+        else {
+            Scanner scn = new Scanner(file);
+            ArrayList<String[]> nums = new ArrayList<>();
+
+            while (scn.hasNext()) {
+                nums.add(scn.nextLine().split(" "));
+            }
+
+            int columns = nums.get(0).length;
+            int[][] arr = new int[nums.size()][columns];
+            Iterator<String[]> iter = nums.iterator();
+            for (int i = 0; i < arr.length; i++) {
+                String[] s = iter.next();
+                for (int j = 0; j < columns; j++) {
+                    arr[i][j] = Integer.parseInt(s[j]);
+                }
+            }
+
+
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < numberOfSeats; j++) {
+                    if (arr[i][j] == 1) {
+                        seat[i][j] = new Seat(i, j);
+                        seat[i][j].setBusy();
+                    }
+                    if(arr[i][j]==0){
+                        seat[i][j] = new Seat();
+                    }
+
+                }
+            }
+            scn.close();
+        }
+    }
+
+    /**
+     * Функція у котрій ми заново ініціалізуєио сидіння , бронюємо нове місце та записуємо новий масив у файл
+     * @param row
+     * @param number
+     *
+     **/
+    void setSeatBusy(int row, int number) throws FileNotFoundException {
+
+        File file = new File(path);
+
+        if (file.length() == 0) {
+            System.out.println("the file is empty");
+        }
+        else {
+            Scanner scn = new Scanner(file);
+            ArrayList<String[]> nums = new ArrayList<>();
+
+            while (scn.hasNext()) {
+                nums.add(scn.nextLine().split(" "));
+            }
+
+            int columns = nums.get(0).length;
+            int[][] arr = new int[nums.size()][columns];
+            Iterator<String[]> iter = nums.iterator();
+            for (int i = 0; i < arr.length; i++) {
+                String[] s = iter.next();
+                for (int j = 0; j < columns; j++) {
+                    arr[i][j] = Integer.parseInt(s[j]);
+                }
+
+
+                scn.close();
+            }
+
+            if ((row >= rows) || (number >= numberOfSeats)) {
+                getSeatProblem();
+            } else {
+                arr[row][number] = 1;
+                seat[row][number].setBusy();
+            }
+            File file1 = new File(path);
+            PrintWriter pw = new PrintWriter(file1);
+            for (int i=0; i<rows; i++){
+                if(i>0) pw.println("");
+
+                for(int j=0; j<numberOfSeats; j++){
+                    pw.print(arr[i][j]+" ");
+                }
+            }
+            pw.close();
+        }
+    }
+
+    /**
+     * внутрішня функція классу , що виконується при вводу невірних даних
+     */
+    private void getSeatProblem(){
+        System.out.println("You print wrong row or place");
+    }
+
+    /**
+    public int getHallSize(){
+        return seat.length;
+    }
+    */
 }
