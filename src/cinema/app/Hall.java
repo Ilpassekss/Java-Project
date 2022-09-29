@@ -8,34 +8,42 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Scanner;
 /**
- * Клас Зали у кінотеатрі
+ * Клас Зали у кінотеатрі який складається з окремих сидінь
  */
 public class Hall{
     /**
-     *  rows значення кількості рядів у залі
+     *  Поле значення кількості рядів у залі
      */
     private static final int rows = 3;
 
     /**
-     * numberOfSeats значення кількості місць у кожному ряду
+     * Поле значення кількості місць у кожному ряду
      */
     private static final int numberOfSeats = 10;
 
     /**
-     *  hallSessionNumber значення того яка зараз сессія у залі
+     *  Поле значення того яка зараз сесія у залі
      */
     private int hallSessionNumber ;
 
     /**
-     *  seat масив всіх крісел у залі
+     *  Поле масиву всіх крісел у залі
      */
     private Seat[][] seat = new Seat[rows][numberOfSeats];
 
     /**
-     *  path шлях до файлу з зайнятими місцями у залі який визначаеться в конструкторі
+     *  Поле шляху до файлу зі значенням зайнятості місць у залі який визначаеться в конструкторі за допомогою
+     *  поля класу hallSeatNumber
      */
     private String path ;
 
+    /**
+     *  Конструктор класу який приймає hallSessionNumber у залі та після цього викликаємо функцію initSeats
+     *  для обраного нами сеансу.
+     *  @param hallSessionNumber  номер сесії у залі в залежності від якого ми вибираємо номер нашої сесії
+     *
+     *
+     */
     public Hall(int hallSessionNumber) throws FileNotFoundException {
         this.hallSessionNumber = hallSessionNumber;
         switch (this.hallSessionNumber){
@@ -62,14 +70,65 @@ public class Hall{
     }
 
 
-    public static void main(String[]string ) throws IOException {
-        Hall hall = new Hall(1);
-        hall.setSeatBusy(1, 8);
 
+    /**
+     * Функція у котрій бронюємо своє місце
+     * У цій функції ми спочатку ініціалізуємо наш масив, встановлюємо значення місця з вільного на зайняте та перезаписуємо
+     * наші данні у файл зі станом кожного місця
+     * @param row  значення ряду у якому ми займаемо місце.
+     * @param number  порядковий номер місця у ряді з ліво на право.
+     **/
+    void setSeatBusy(int row, int number) throws FileNotFoundException {
+        row = row-1;
+        number = number-1;
+        File file = new File(path);
+
+        if (file.length() == 0) {
+            System.out.println("the file is empty");
+        }
+        else {
+            Scanner scn = new Scanner(file);
+            ArrayList<String[]> nums = new ArrayList<>();
+
+            while (scn.hasNext()) {
+                nums.add(scn.nextLine().split(" "));
+            }
+
+            int columns = nums.get(0).length;
+            int[][] arr = new int[nums.size()][columns];
+            Iterator<String[]> iter = nums.iterator();
+            for (int i = 0; i < arr.length; i++) {
+                String[] s = iter.next();
+                for (int j = 0; j < columns; j++) {
+                    arr[i][j] = Integer.parseInt(s[j]);
+                }
+
+                scn.close();
+            }
+
+            if ((row >= rows) || (number >= numberOfSeats)) {
+                getSeatProblem();
+            } else {
+                arr[row][number] = 1;
+                seat[row][number].setBusy();
+            }
+
+            File file1 = new File(path);
+            PrintWriter pw = new PrintWriter(file1);
+            for (int i=0; i<rows; i++){
+                if(i>0) pw.println("");
+
+                for(int j=0; j<numberOfSeats; j++){
+                    pw.print(arr[i][j]+" ");
+                }
+            }
+            pw.close();
+        }
     }
 
     /**
-     *  ініціалізація кожного сидіння в залі перед замовленням нового
+     *  Ініціалізація кожного сидіння
+     *  У цій функції ми заповнюємо наш масив seat об'єктами класу Seat та встановлюємо чи було це місце зайнятим.
      */
     private void initSeats() throws FileNotFoundException {
 
@@ -103,7 +162,7 @@ public class Hall{
                         seat[i][j].setBusy();
                     }
                     if(arr[i][j]==0){
-                        seat[i][j] = new Seat();
+                        seat[i][j] = new Seat(i, j);
                     }
 
                 }
@@ -112,69 +171,14 @@ public class Hall{
         }
     }
 
-    /**
-     * Функція у котрій ми заново ініціалізуєио сидіння , бронюємо нове місце та записуємо новий масив у файл
-     * @param row
-     * @param number
-     *
-     **/
-    void setSeatBusy(int row, int number) throws FileNotFoundException {
 
-        File file = new File(path);
-
-        if (file.length() == 0) {
-            System.out.println("the file is empty");
-        }
-        else {
-            Scanner scn = new Scanner(file);
-            ArrayList<String[]> nums = new ArrayList<>();
-
-            while (scn.hasNext()) {
-                nums.add(scn.nextLine().split(" "));
-            }
-
-            int columns = nums.get(0).length;
-            int[][] arr = new int[nums.size()][columns];
-            Iterator<String[]> iter = nums.iterator();
-            for (int i = 0; i < arr.length; i++) {
-                String[] s = iter.next();
-                for (int j = 0; j < columns; j++) {
-                    arr[i][j] = Integer.parseInt(s[j]);
-                }
-
-
-                scn.close();
-            }
-
-            if ((row >= rows) || (number >= numberOfSeats)) {
-                getSeatProblem();
-            } else {
-                arr[row][number] = 1;
-                seat[row][number].setBusy();
-            }
-            File file1 = new File(path);
-            PrintWriter pw = new PrintWriter(file1);
-            for (int i=0; i<rows; i++){
-                if(i>0) pw.println("");
-
-                for(int j=0; j<numberOfSeats; j++){
-                    pw.print(arr[i][j]+" ");
-                }
-            }
-            pw.close();
-        }
-    }
 
     /**
-     * внутрішня функція классу , що виконується при вводу невірних даних
+     * Внутрішня функція класу, що виконується при вводу невірних даних у функції setSeatBusy
      */
     private void getSeatProblem(){
         System.out.println("You print wrong row or place");
     }
 
-    /**
-    public int getHallSize(){
-        return seat.length;
-    }
-    */
+
 }

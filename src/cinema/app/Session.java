@@ -13,53 +13,66 @@ public class Session {
 
 
     /**
-     * назва фільму
+     * Поле назви фільму
      */
     private String filmName;
 
     /**
-     * поле дати та часу початку фільму
+     * Поле дати початку фільму
      */
-    Calendar date = new GregorianCalendar();
-
+    private Calendar date = new GregorianCalendar();
     /**
-     * номер сессії у кінотеатрі
+     * Поле часу старту фільму
      */
-    private int hallSessionNumber;
-
+    private int filmStartTime;
     /**
-     * ціна квитка
+     * Поле тривалості фільму
      */
-    private float price ;
-
+    private int filmDuration;
     /**
-     *  порядковий номер сессії
+     * Поле ціни квитка на фільм
      */
-    private int id;
+    private float orderPrice ;
+    /**
+     * Поле кількості глядачів у цій сесії
+     */
+    private int numberOfClients;
+    /**
+     * Поле кількості сеансів
+     */
+    private static int count = 0;
+    /**
+     * Поле ID цієї сесії
+     */
+    private int sessionID;
+    /**
+     * Конструктор об'єкту класу сесії в якому ми ініціалізуємо наступні поля:
+     * @param filmName назва фільму
+     * @param date дата початку фільму
+     * @param filmStartTime час старту фільму
+     * @param filmDuration тривалість фільму
+     * @param orderPrice ціна квитка на фільм
+     * @param numberOfClients кількість глядачів у цій сесії
+     *
+     */
+    Session(String filmName, Calendar date, int filmStartTime, int filmDuration, float orderPrice, int numberOfClients){
+        this.filmName = filmName;
+        this.date = date;
+        this.filmStartTime = filmStartTime;
+        this.filmDuration = filmDuration;
+        this.orderPrice = orderPrice;
+        this.numberOfClients = numberOfClients;
 
-    Session(){
-
+        count++;
+        sessionID = count;
     }
-
-
-
-
-
-
+    /**
+     * Функція у якій при замовленні нового квитка ми ітеруємо загальну кількість глядачів у цій сесії
+     */
+    public void iterateNewOrder(){}
 
     /**
-     *  встановлення часу фільму
+     * Функція у котрій ми повертаємо значення ID номеру сесії
      */
-    void setTime(){}
-    /**
-     * встановлення ціни квитка
-     */
-    void setPriceTicket(float price){
-        this.price = price;
-    }
-
-
-
-
-
+    public int getSessionID(){return sessionID;}
 }

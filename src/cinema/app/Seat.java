@@ -5,15 +5,17 @@ package cinema.app;
  */
 public class Seat {
     /**
-     * @param row значення ряду в якому знаходиться наше крісло
+     * Поле значення ряду в якому знаходиться наше крісло
      */
     private int row;
+
     /**
-     * @param number номер місця у ряду в якому знаходиться наше крісло
+     * Поле номеру місця у ряду в якому знаходиться наше крісло
      */
     private int number;
+
     /**
-     * @param busy визначає чи є наше місце занятим чи ні
+     * Поле стану крісла, за замовчуванням воно false
      */
     private boolean busy = false;
 
@@ -21,22 +23,18 @@ public class Seat {
     public Seat(int row, int number){
         this.number = number;
         this.row = row;
-
-        //count ++;
-        //id = count;
     }
 
-    public Seat(){}
+
 
     /**
-     *
-     * @return busy
-     * для перевірки стану місця
+     *  Функція перевірки зайнятості місця у залі
+     *  @return busy стан місця
      */
     public boolean getBusy(){return busy;}
 
     /**
-     * Перевіряє чи не є місце занятим та встановлює його зайнятим
+     * Функція встановлення стану місця з false на true
      */
     public void setBusy(){
         if(this.busy==true){
