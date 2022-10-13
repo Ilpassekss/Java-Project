@@ -1,5 +1,6 @@
 package cinema.app;
 
+import java.io.*;
 import java.sql.Time;
 import java.util.Calendar;
 
@@ -18,15 +19,15 @@ public class Order {
     /**
      * Поле дати початку фільму
      */
-    private Calendar startDate;
+    private String startDate;
     /**
      * Поле часу старту фільму
      */
-    private int filmStartTime;
+    private double filmStartTime;
     /**
      * Поле тривалості фільму
      */
-    private int filmDuration;
+    private double filmDuration;
     /**
      * Поле ціни квитка на фільм
      */
@@ -66,7 +67,7 @@ public class Order {
     /**
      * Поле напрямку до файлу у якому ми зберігаємо всі дані про усі замолені білети
      */
-    private String path;
+    private String path = "resourses/orders/orders.txt";
 
     /**
      *
@@ -84,8 +85,8 @@ public class Order {
      * @param cashierName ім'я касира
      * @param cashierSurname прізвище касира
      */
-    Order(String filmName, int sessionNumber, Calendar startDate, int filmStartTime, int filmDuration,
-          int orderPrice, int rowNumber, int placeNumber, String clientName,String clientSurname , String cashierName, String cashierSurname){
+    Order(String filmName, int sessionNumber, String startDate, double filmStartTime, double filmDuration,
+          int orderPrice, int rowNumber, int placeNumber, String clientName, String clientSurname, String cashierName, String cashierSurname) throws IOException {
 
         this.filmName = filmName;
         this.sessionNumber = sessionNumber;
@@ -105,16 +106,41 @@ public class Order {
 
 
     }
+
     /**
      * Функція яка підраховує кількість уже замовлених раніше квитків та :
-     * @return number
+     * @return lines
      */
-    private int countNumberOfOrders(){
-        int number= 0;
-        return number;}
+    private int countNumberOfOrders() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(path));
+        int lines = 0;
+        while (reader.readLine() != null) lines++;
+        reader.close();
+
+        return lines;
+
+    }
+
     /**
      * Функція яка дописує новий білет у загальний список
      */
-    public void writeOrderToList(){}
+    public void writeOrderToList(){
+        try {
+            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(path, true))); // true добавит новые данные
+            out.println(filmName + " " + sessionNumber + " " + startDate + " " + filmStartTime + " " + filmDuration
+            + " " + orderPrice + " " + rowNumber + " " + placeNumber + " " + clientName + " " + clientSurname + " " +
+                    cashierName + " " + cashierSurname + " " + orderID);
+            out.close();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+
+
+    }
+
+    public int getOrderID(){
+        return orderID;
+    }
+
 
 }

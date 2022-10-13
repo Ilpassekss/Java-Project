@@ -60,12 +60,12 @@ class Client extends Person{
      *  Конструктор класу клієнта
      *@param name ім'я людини
      *@param surname прізвище людини
-     *@param orderId id номер квитка який дорівнює id клієнта
      */
-    public Client(String name ,String surname, int orderId ){
+    public Client(String name ,String surname ){
         super (name, surname);
-        this.id = orderId;
+
     }
+
     /**
      *  Геттер імені клієнта яке буде відображатись у замолені
      */
@@ -79,12 +79,11 @@ class Client extends Person{
     void setName(String name){
         this.name = name;
     }
-
     /**
      *  Геттер прізвища клієнта яке буде відображатись у замолені
      */
     String getSurname() {
-        return name;
+        return surname;
     }
     /**
      *  Сеттер прізвища
@@ -93,7 +92,13 @@ class Client extends Person{
     void setSurname(String surname){
         this.surname = surname;
     }
-
+    /**
+     *  Сеттер номеру клієнта
+     *  @param orderId порядковий номер клієнта
+     */
+    void setId(int orderId){
+        this.id = orderId;
+    }
 }
 
 /**
@@ -123,10 +128,16 @@ class Cashier extends Person {
      *@param name ім'я людини
      *@param surname прізвище людини
      *@param jobShift чергування у яке працює касир
+     *@param cinemaName назва кінотеатру
+     *@param phoneNumber номер телефону
+     *@param adress адреса проживання
      */
-    public Cashier(String name, String surname, int jobShift){
+    public Cashier(String name, String surname, int jobShift, String cinemaName, int phoneNumber, String adress){
         super(name, surname);
         this.shiftAtJob = jobShift;
+        this.cinemaName = cinemaName;
+        this.phoneNumber = phoneNumber;
+        this.adress = adress;
     }
 
     /**
@@ -147,7 +158,7 @@ class Cashier extends Person {
      *  Геттер прізвища касира яке буде відображатись у замолені
      */
     String getSurname() {
-        return name;
+        return surname;
     }
     /**
      *  Сеттер прізвища
@@ -156,9 +167,9 @@ class Cashier extends Person {
     void setSurname(String surname){
         this.surname = surname;
     }
-
-
-
-
-   }
+    /**
+     *  Геттер зміни у яку працює касир
+     */
+    int getShiftAtJob(){return shiftAtJob;}
+}
 

@@ -26,15 +26,15 @@ public class Session {
     /**
      * Поле часу старту фільму
      */
-    private float filmStartTime;
+    private double filmStartTime;
     /**
      * Поле тривалості фільму
      */
-    private float filmDuration;
+    private double filmDuration;
     /**
      * Поле ціни квитка на фільм
      */
-    private float orderPrice ;
+    private int orderPrice ;
     /**
      * Поле кількості глядачів у цій сесії
      */
@@ -47,18 +47,22 @@ public class Session {
      * Поле ID цієї сесії
      */
     private int sessionID;
+
+
     /**
      * Конструктор об'єкту класу сесії в якому ми ініціалізуємо наступні поля:
      * @param sessionNumber номер сесії у цьому залі
-     * @param filmName назва фільму
-     * @param date дата початку фільму
-     * @param filmStartTime час старту фільму
-     * @param filmDuration тривалість фільму
-     * @param orderPrice ціна квитка на фільм
-     * @param numberOfClients кількість глядачів у цій сесії
+     *@param filmName назва фільму
+     *@param date дата початку фільму
+     *@param filmStartTime час старту фільму
+     *@param filmDuration тривалість фільму
+     *@param orderPrice ціна квитка на фільм
+     *@param numberOfClients кількість глядачів у цій сесії
      *
      */
-    Session(int sessionNumber, String filmName, String date, float filmStartTime, float filmDuration, float orderPrice, int numberOfClients){
+    Session(int sessionNumber, String filmName, String date, double filmStartTime , double filmDuration,
+            int orderPrice, int numberOfClients) throws FileNotFoundException {
+
         this.sessionNumber = sessionNumber;
         this.filmName = filmName;
         this.date = date;
@@ -66,46 +70,37 @@ public class Session {
         this.filmDuration = filmDuration;
         this.orderPrice = orderPrice;
         this.numberOfClients = numberOfClients;
-
-        count++;
-        sessionID = count;
-
+        count ++;
+        sessionID = count ;
 
     }
-
-    public static void main(String[] str) throws FileNotFoundException {
-        File file = new File("resourses/sheldue/scheldue.txt");
-        if (file.length() == 0) {
-            System.out.println("Файл пуст");
-        } else {
-            Scanner scn = new Scanner(file);
-            ArrayList<String[]> nums = new ArrayList<>();
-
-            while (scn.hasNext()) {
-                nums.add(scn.nextLine().split(" "));
-            }
-
-            int columns = nums.get(0).length;
-            String [][] arr = new String[nums.size()][columns];
-            Iterator<String[]> iter = nums.iterator();
-            for (int i = 0; i < arr.length; i++) {
-                System.out.println("");
-                String[] s = iter.next();
-                for (int j = 0; j < columns; j++) {
-                    arr[i][j] = s[j];
-                    System.out.print(arr[i][j] + " ");
-                }
-            }
-        }
-    }
-
-    /**
-     * Функція у якій при замовленні нового квитка ми ітеруємо загальну кількість глядачів у цій сесії
-     */
-    public void iterateNewOrder(){}
 
     /**
      * Функція у котрій ми повертаємо значення ID номеру сесії
      */
     public int getSessionID(){return sessionID;}
+
+    int getSessionNumber(){return sessionNumber;}
+
+    String getFilmName(){
+        return  filmName;
+    }
+
+    String getDate(){
+        return date;
+    }
+
+    double getFilmStartTime(){
+        return filmStartTime;
+    }
+
+    double getFilmDuration(){
+        return filmDuration;
+    }
+
+    int getOrderPrice(){
+        return orderPrice;
+    }
+
+    int getNumberOfClients(){return numberOfClients;}
 }

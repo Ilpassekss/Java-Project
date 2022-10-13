@@ -1,6 +1,3 @@
-
-
-
 package cinema.app;
 import java.io.*;
 import java.util.ArrayList;
@@ -106,7 +103,7 @@ public class Hall{
                 scn.close();
             }
 
-            if ((row >= rows) || (number >= numberOfSeats)) {
+            if ((row >= rows) || (number >= numberOfSeats) || (row < 0) || (number < 0)) {
                 getSeatProblem();
             } else {
                 arr[row][number] = 1;
@@ -124,6 +121,45 @@ public class Hall{
             }
             pw.close();
         }
+    }
+
+    /**
+     * Функція котра повертає значення кількості зайнятих місць у залі
+     **/
+    public int getBusyPlaces() throws FileNotFoundException {
+        int countPlaces = 0;
+
+        File file = new File(path);
+        if (file.length() == 0) {
+            System.out.println("Файл пуст");
+        } else {
+            Scanner scn = new Scanner(file);
+            ArrayList<String[]> nums = new ArrayList<>();
+
+            while (scn.hasNext()) {
+                nums.add(scn.nextLine().split(" "));
+            }
+
+            int columns = nums.get(0).length;
+            int[][] arr = new int[nums.size()][columns];
+            Iterator<String[]> iter = nums.iterator();
+            for (int i = 0; i < arr.length; i++) {
+                String[] s = iter.next();
+                for (int j = 0; j < columns; j++) {
+                    arr[i][j] = Integer.parseInt(s[j]);
+                }
+            }
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < numberOfSeats; j++) {
+                    if (arr[i][j] == 1) {
+                        countPlaces ++;
+                    }
+
+                }
+            }
+        scn.close();
+        }
+        return countPlaces;
     }
 
     /**
@@ -167,11 +203,9 @@ public class Hall{
 
                 }
             }
-            scn.close();
+        scn.close();
         }
     }
-
-
 
     /**
      * Внутрішня функція класу, що виконується при вводу невірних даних у функції setSeatBusy
