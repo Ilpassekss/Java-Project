@@ -20,6 +20,7 @@ public class Client extends Person{
 
     }
 
+
     /**
      *  Геттер імені клієнта яке буде відображатись у замолені
      */
@@ -52,5 +53,10 @@ public class Client extends Person{
      */
     void setId(int orderId){
         this.id = orderId;
+    }
+
+    @Override
+    public boolean equal(Object obj) {
+        return false;
     }
 }

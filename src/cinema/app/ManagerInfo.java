@@ -53,4 +53,7 @@ public class ManagerInfo {
         return cash;
     }
 
+    public static  void main(String[]string ) throws FileNotFoundException {
+        System.out.println(sumCash());
+    }
 }

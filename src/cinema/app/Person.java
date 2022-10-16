@@ -22,6 +22,8 @@ public abstract class Person {
         this.surname = surname;
     }
 
+    public abstract boolean equal(Object obj);
+
     /**
      *  Геттер імені
      */
@@ -41,11 +43,11 @@ public abstract class Person {
      */
     abstract void setSurname(String surname);
 
+
+
 }
 
-/**
- *  клас клієнта кінотеатру
- */
+
 
 
 
