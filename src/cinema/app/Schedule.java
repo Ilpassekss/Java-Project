@@ -3,17 +3,19 @@ package cinema.app;
 import java.io.*;
 import java.util.*;
 
-public class Schedule {
+public class Schedule implements Cloneable{
 
     /**
      * Поле масиву усіх сесій у залі
      */
-    public Map<Integer, Session> session = new HashMap<Integer, Session>();
+    static public Map<Integer, Session> session = new HashMap<Integer, Session>();
 
     /**
      * Поле напрямку до файлу у якому ми зберігаємо всі дані про сесії залу
      */
     String path = "resourses/sheldue/scheldue.txt";
+
+
 
     Schedule() throws FileNotFoundException {
         initSessions();
@@ -44,25 +46,13 @@ public class Schedule {
                 String[] s = iter.next();
                 for (int j = 0; j < columns; j++) {
                     sessions[i][j] = s[j];
-                    switch(j){
-                        case(0):
-                            System.out.print( sessions[i][j]+ " ");
-                            break;
-                        case(1):
-                            System.out.print("Film name: " + sessions[i][j] + " ");
-                            break;
-                        case(2):
-                            System.out.print("Film date: " + sessions[i][j] + " ");
-                            break;
-                        case(3):
-                            System.out.print("Film start time: " + sessions[i][j] + " ");
-                            break;
-                        case(4):
-                            System.out.print("Film duration: " + sessions[i][j] + " ");
-                            break;
-                        case(5):
-                            System.out.print("Ticket price: " + sessions[i][j] + "\u20B4"+ " ");
-                            break;
+                    switch (j) {
+                        case (0) -> System.out.print(sessions[i][j] + " ");
+                        case (1) -> System.out.print("Film name: " + sessions[i][j] + " ");
+                        case (2) -> System.out.print("Film date: " + sessions[i][j] + " ");
+                        case (3) -> System.out.print("Film start time: " + sessions[i][j] + " ");
+                        case (4) -> System.out.print("Film duration: " + sessions[i][j] + " ");
+                        case (5) -> System.out.print("Ticket price: " + sessions[i][j] + "\u20B4" + " ");
                     }
                 }
             }
@@ -101,35 +91,32 @@ public class Schedule {
 
                 for (int j = 0; j < columns; j++) {
                     info[i][j] = s[j];
-                    switch (j){
-
-                        case(1):
-                            fName = info[i][j];
-                            break;
-                        case(2):
-                            fDate = info[i][j];
-                            break;
-                        case(3):
-                            fStartTime = Double.parseDouble(info[i][j]);
-                            break;
-                        case(4):
-                            fDuration = Double.parseDouble(info[i][j]);
-                            break;
-                        case(5):
-                            fTicketCost = Integer.parseInt(info[i][j]);
-                            break;
+                    switch (j) {
+                        case (1) -> fName = info[i][j];
+                        case (2) -> fDate = info[i][j];
+                        case (3) -> fStartTime = Double.parseDouble(info[i][j]);
+                        case (4) -> fDuration = Double.parseDouble(info[i][j]);
+                        case (5) -> fTicketCost = Integer.parseInt(info[i][j]);
                     }
 
 
                 }
                 Hall hall = new Hall(i+1);
                 Session ses;
-                session.put(i+1, ses = new Session(fNumber, fName , fDate, fStartTime, fDuration , fTicketCost, hall.getBusyPlaces()));
+                session.put(i+1, ses = new Session(fNumber = i+1, fName , fDate, fStartTime, fDuration , fTicketCost, hall.getBusyPlaces()));
             }
         scn.close();
         }
     }
 
+    public static <T> HashMap<Integer, Session> deepCopyWorkAround(Map<Integer, Session> original) throws IOException, ClassNotFoundException {
+        HashMap<Integer, Session> copy = new HashMap<>();
+        for (Map.Entry<Integer, Session> entry : original.entrySet()) {
+            Session ses = original.get(entry.getKey()).streamClone();
+            copy.put(entry.getKey(), ses);
+        }
+        return copy;
+    }
 
 }
 

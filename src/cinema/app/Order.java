@@ -7,7 +7,7 @@ import java.util.Calendar;
 /**
  *  Клас замовлення(квитка)
  */
-public class Order {
+public class Order  {
     /**
      * Поле назви фільму
      */

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="-384.70633547862826" y="40.0070784655984">cinema.app.Session</node>
+    <node x="61.94248961778612" y="847.9276963912457">cinema.app.TerminalInterface</node>
+    <node x="-397.8336836447295" y="530.91354794488">cinema.app.Order</node>
+    <node x="112.8618431041115" y="119.73206447239042">cinema.app.Hall</node>
+    <node x="320.48673477273763" y="1020.2771229594337">cinema.app.Cashier</node>
+    <node x="185.18446854860554" y="596.928145743491">cinema.app.Schedule</node>
+    <node x="-206.0002286676986" y="1043.6179642401073">cinema.app.Client</node>
+    <node x="487.2611476163348" y="203.17419902102077">cinema.app.Seat</node>
+    <node x="50.30912295900498" y="1238.521125398377">cinema.app.Person</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="cinema.app.Client" target="cinema.app.Person" relationship="GENERALIZATION">
+      <point x="2.2866769859319902E-4" y="-115.99996424010726" />
+      <point x="-118.0" y="1018.0" />
+      <point x="138.309" y="1018.0" />
+      <point x="-1.229590049831586E-4" y="-105.00012539837712" />
+    </edge>
+    <edge source="cinema.app.Cashier" target="cinema.app.Person" relationship="GENERALIZATION">
+      <point x="-145.4997347727376" y="-1.229594336109585E-4" />
+      <point x="138.309" y="1169.277" />
+      <point x="-1.229590049831586E-4" y="-105.00012539837712" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.5878236529041287" showDependencies="false" x="127.5" y="754.5000000000001" />
+  <SelectedNodes>
+    <node>cinema.app.Seat</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

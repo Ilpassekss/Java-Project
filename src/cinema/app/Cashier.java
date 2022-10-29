@@ -45,10 +45,12 @@ public Cashier(String name, String surname, int jobShift,
         if (this == obj) return true;
         if(obj==null||getClass()!=obj.getClass()) return false;
 
+
         Cashier that = (Cashier) obj;
 
-        return name.equals(that.name) && surname.equals(that.surname) && adress.equals(that.adress)
-                && cinemaName.equals(that.cinemaName) && phoneNumber== that.phoneNumber;
+            return name.equals(that.name) && surname.equals(that.surname) && adress.equals(that.adress)
+                    && cinemaName.equals(that.cinemaName) && phoneNumber == that.phoneNumber;
+
     }
 
     @Override

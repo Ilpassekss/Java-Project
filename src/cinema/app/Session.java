@@ -1,14 +1,13 @@
 package cinema.app;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.sql.Time;
 import java.util.*;
 
 /**
  *клас Сессії кінотеатру
  */
-public class Session {
+public class Session implements Serializable, Cloneable{
     //info for date
     /**
      * Поле номеру сесії
@@ -51,7 +50,7 @@ public class Session {
 
     /**
      * Конструктор об'єкту класу сесії в якому ми ініціалізуємо наступні поля:
-     * @param sessionNumber номер сесії у цьому залі
+     *@param sessionNumber номер сесії у цьому залі
      *@param filmName назва фільму
      *@param date дата початку фільму
      *@param filmStartTime час старту фільму
@@ -60,7 +59,7 @@ public class Session {
      *@param numberOfClients кількість глядачів у цій сесії
      *
      */
-    Session(int sessionNumber, String filmName, String date, double filmStartTime , double filmDuration,
+    public Session(int sessionNumber, String filmName, String date, double filmStartTime , double filmDuration,
             int orderPrice, int numberOfClients) throws FileNotFoundException {
 
         this.sessionNumber = sessionNumber;
@@ -74,6 +73,15 @@ public class Session {
         sessionID = count ;
 
     }
+    /**
+     * Конструктор копіювання
+     */
+    public Session (Session other) throws FileNotFoundException {
+        this(other.sessionNumber, other.filmName, other.date, other.filmStartTime, other.filmDuration, other.orderPrice,
+                other.numberOfClients);
+    }
+
+
 
     /**
      * Функція у котрій ми повертаємо значення ID номеру сесії
@@ -103,4 +111,46 @@ public class Session {
     }
 
     int getNumberOfClients(){return numberOfClients;}
+
+    @Override
+    public String toString() {
+        return "Session{" +
+                "sessionNumber=" + sessionNumber +
+                ", filmName='" + filmName + '\'' +
+                ", date='" + date + '\'' +
+                ", filmStartTime=" + filmStartTime +
+                ", filmDuration=" + filmDuration +
+                ", orderPrice=" + orderPrice +
+                ", numberOfClients=" + numberOfClients +
+                ", sessionID=" + sessionID +
+                '}';
+    }
+
+    public void setFilmName(String filmName) {
+        this.filmName = filmName;
+    }
+    /**
+     * Функція копіювання серіалізацією
+     */
+    public Session streamClone() throws IOException, ClassNotFoundException {
+        Session ses;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream ous = new ObjectOutputStream(baos);
+        //зберігаємо стан і закриваємо потік
+        ous.writeObject(this);
+        ous.close();
+        ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+        ObjectInputStream ois = new ObjectInputStream(bais);
+        //створюємо та ініціалізуємо
+        ses = (Session)ois.readObject();
+        return ses;
+    }
+    /**
+     * Стандартне перевизначення функції клонування
+     */
+    @Override
+    public Session clone() throws CloneNotSupportedException {
+        return (Session)super.clone();
+    }
+
 }

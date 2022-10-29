@@ -214,5 +214,14 @@ public class Hall{
         System.out.println("You print wrong row or place");
     }
 
+    public static int getNumberOfSeats() {
+        return numberOfSeats;
+    }
+    public static int getRows() {
+        return rows;
+    }
 
+    public Seat getSet(int i, int j){
+        return seat[i][j];
+    }
 }
