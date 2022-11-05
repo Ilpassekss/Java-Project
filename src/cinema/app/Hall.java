@@ -1,7 +1,6 @@
 package cinema.app;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Scanner;
 /**
@@ -43,30 +42,16 @@ public class Hall{
      */
     public Hall(int hallSessionNumber) throws FileNotFoundException {
         this.hallSessionNumber = hallSessionNumber;
-        switch (this.hallSessionNumber){
-            case(1):
-                path = "resourses/hall_1/hall_Session_1.txt";
-                break;
-            case(2):
-                path = "resourses/hall_1/hall_Session_2.txt";
-                break;
-            case(3):
-                path = "resourses/hall_1/hall_Session_3.txt";
-                break;
-            case(4):
-                path = "resourses/hall_1/hall_Session_4.txt";
-                break;
-            case(5):
-                path = "resourses/hall_1/hall_Session_5.txt";
-                break;
-            case(6):
-                path = "resourses/hall_1/hall_Session_6.txt";
-                break;
+        switch (this.hallSessionNumber) {
+            case (1) -> this.path = "resourses/hall_1/hall_Session_1.txt";
+            case (2) -> this.path = "resourses/hall_1/hall_Session_2.txt";
+            case (3) -> this.path = "resourses/hall_1/hall_Session_3.txt";
+            case (4) -> this.path = "resourses/hall_1/hall_Session_4.txt";
+            case (5) -> this.path = "resourses/hall_1/hall_Session_5.txt";
+            case (6) -> this.path = "resourses/hall_1/hall_Session_6.txt";
         }
         initSeats();
     }
-
-
 
     /**
      * Функція у котрій бронюємо своє місце
@@ -168,7 +153,7 @@ public class Hall{
      */
     private void initSeats() throws FileNotFoundException {
 
-        File file = new File(path);
+        File file = new File(this.path);
         if (file.length() == 0) {
             System.out.println("Файл пуст");
         }
@@ -190,19 +175,24 @@ public class Hall{
                 }
             }
 
+    try {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < numberOfSeats; j++) {
 
-            for (int i = 0; i < rows; i++) {
-                for (int j = 0; j < numberOfSeats; j++) {
-                    if (arr[i][j] == 1) {
-                        seat[i][j] = new Seat(i, j);
-                        seat[i][j].setBusy();
-                    }
-                    if(arr[i][j]==0){
-                        seat[i][j] = new Seat(i, j);
-                    }
-
+                if (arr[i][j] == 1) {
+                    seat[i][j] = new Seat(i, j);
+                    seat[i][j].setBusy();
                 }
+                if (arr[i][j] == 0) {
+                    seat[i][j] = new Seat(i, j);
+                }
+
             }
+        }
+    }catch (ArrayIndexOutOfBoundsException e){
+        System.err.println("Invalid array index");
+    }
+
         scn.close();
         }
     }

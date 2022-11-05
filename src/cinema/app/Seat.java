@@ -1,5 +1,7 @@
 package cinema.app;
 
+import exeption.SetSeatBusyException;
+
 /**
  * Клас сидіння у залі
  */
@@ -37,9 +39,7 @@ public class Seat {
      * Функція встановлення стану місця з false на true
      */
     public void setBusy(){
-        if(this.busy==true){
-        System.out.println("Someone booked this place earlier");
-    }
+        if(this.busy) throw new SetSeatBusyException("this place is already booked", true);
     else{
         this.busy = true;
     }

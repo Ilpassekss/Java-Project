@@ -8,7 +8,7 @@ public class Schedule implements Cloneable{
     /**
      * Поле масиву усіх сесій у залі
      */
-    static public Map<Integer, Session> session = new HashMap<Integer, Session>();
+    public Map<Integer, Session> session = new HashMap<Integer, Session>();
 
     /**
      * Поле напрямку до файлу у якому ми зберігаємо всі дані про сесії залу
@@ -109,7 +109,7 @@ public class Schedule implements Cloneable{
         }
     }
 
-    public static <T> HashMap<Integer, Session> deepCopyWorkAround(Map<Integer, Session> original) throws IOException, ClassNotFoundException {
+    public static HashMap<Integer, Session> deepCopyWorkAround(Map<Integer, Session> original) throws IOException, ClassNotFoundException {
         HashMap<Integer, Session> copy = new HashMap<>();
         for (Map.Entry<Integer, Session> entry : original.entrySet()) {
             Session ses = original.get(entry.getKey()).streamClone();

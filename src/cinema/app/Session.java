@@ -46,6 +46,7 @@ public class Session implements Serializable, Cloneable{
      * Поле ID цієї сесії
      */
     private int sessionID;
+    Cashier cashier;
 
 
     /**
@@ -148,9 +149,7 @@ public class Session implements Serializable, Cloneable{
     /**
      * Стандартне перевизначення функції клонування
      */
-    @Override
-    public Session clone() throws CloneNotSupportedException {
-        return (Session)super.clone();
-    }
+
+
 
 }
