@@ -73,9 +73,9 @@ public class GUISystem extends JFrame {
                     int j = finalI + 1;
 
                     try {
-                        this.hallPanel = new HallPanel(WIDTH, HEIGHT, Color.DARK_GRAY, j);
-                    } catch (FileNotFoundException ex) {
-                        throw new RuntimeException(ex);
+                            this.hallPanel = new HallPanel(WIDTH, HEIGHT, Color.DARK_GRAY, j);
+                        } catch (FileNotFoundException ex) {
+                            throw new RuntimeException(ex);
                     }
                     this.hallPanel.initElements();
                     this.backgroundPanel.add(this.hallPanel);
@@ -244,7 +244,7 @@ public class GUISystem extends JFrame {
 
 
         }catch(NullPointerException e){
-            System.err.println("Some variable is not initialized");
+            System.err.println(e);
         }
     }
 
@@ -280,8 +280,6 @@ public class GUISystem extends JFrame {
         this.add(file);
         this.add(info);
     }
-
-
 
 }
 
@@ -482,7 +480,6 @@ public class GUISystem extends JFrame {
             super(width, height, color);
         }
 
-
         public void initElements(){
             this.setLayout(null);
             JLabel cinemaNameLabel = new JLabel(this.cinemaName);
@@ -527,11 +524,6 @@ public class GUISystem extends JFrame {
             this.setVisible(true);
         }
     }
-
-
-
-
-
 
 
     private static class ask1 extends AbstractPanel{

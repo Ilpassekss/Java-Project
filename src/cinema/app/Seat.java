@@ -33,18 +33,18 @@ public class Seat {
      *  Функція перевірки зайнятості місця у залі
      *  @return busy стан місця
      */
-    public boolean getBusy(){return busy;}
+    public boolean getBusy(){return this.busy;}
 
     /**
      * Функція встановлення стану місця з false на true
      */
     public void setBusy(){
-        if(this.busy) throw new SetSeatBusyException("this place is already booked", true);
-    else{
-        this.busy = true;
-    }
+
+            this.busy = true;
+
+        }
 
     }
 
 
-}
+

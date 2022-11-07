@@ -93,6 +93,7 @@ public class Hall{
             } else {
                 arr[row][number] = 1;
                 seat[row][number].setBusy();
+
             }
 
             File file1 = new File(path);
@@ -106,6 +107,11 @@ public class Hall{
             }
             pw.close();
         }
+    }
+
+    boolean getSeatStatus(int i, int j){
+        i--;j--;
+        return seat[i][j].getBusy();
     }
 
     /**
@@ -176,7 +182,7 @@ public class Hall{
             }
 
     try {
-        for (int i = 0; i < rows; i++) {
+        for (int i = 0; i < rows+1; i++) {
             for (int j = 0; j < numberOfSeats; j++) {
 
                 if (arr[i][j] == 1) {
@@ -214,4 +220,6 @@ public class Hall{
     public Seat getSet(int i, int j){
         return seat[i][j];
     }
+
+
 }

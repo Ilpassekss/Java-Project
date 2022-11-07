@@ -5,7 +5,7 @@ public class SetSeatBusyException extends RuntimeException{
     public boolean getBusyStatus(){return  busyStatus;}
 
     public SetSeatBusyException(String message, boolean busyStatus){
-        super(message);
+        super("Something went wrong: "+message);
         this.busyStatus = busyStatus;
 
     }

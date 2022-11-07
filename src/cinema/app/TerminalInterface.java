@@ -1,5 +1,7 @@
 package cinema.app;
 
+import exeption.SetSeatBusyException;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
@@ -56,17 +58,31 @@ public class TerminalInterface {
             Hall hall = new Hall(sesNumber);
             sch.session.get(sesNumber);
 
-
-            System.out.println("Choose row: ");
-            String row = scn.nextLine();
-            System.out.println("Choose seat number: ");
-            String num = scn.nextLine();
-
-
-            int rowInt = Integer.parseInt(row); int numInt = Integer.parseInt(num);
-            hall.setSeatBusy(rowInt, numInt);
+            int rowInt ;
+            int numInt ;
+            while(true) {
+                System.out.println("Choose row: ");
+                String row = scn.nextLine();
+                System.out.println("Choose seat number: ");
+                String num = scn.nextLine();
 
 
+                rowInt = Integer.parseInt(row);
+                numInt = Integer.parseInt(num);
+
+
+
+                try{
+                    if (hall.getSeatStatus(rowInt, numInt)) throw new SetSeatBusyException("you chose booked place", true);
+                    hall.setSeatBusy(rowInt, numInt);
+
+                }catch(SetSeatBusyException e){
+                    e.printStackTrace();//виводить System.err
+                    continue;
+
+                }
+                break;
+            }
             order = new Order(sch.session.get(sesNumber).getFilmName(), sch.session.get(sesNumber).getSessionNumber(),
                     sch.session.get(sesNumber).getDate(), sch.session.get(sesNumber).getFilmStartTime(), sch.session.get(sesNumber).getFilmDuration(),
                     sch.session.get(sesNumber).getOrderPrice(), rowInt, numInt, cashier.getName(), cashier.getSurname(),
