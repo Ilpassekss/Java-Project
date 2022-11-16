@@ -38,8 +38,8 @@ public class TerminalInterface {
 
 
 
-        while (programStatus == true) {
-            Order order;
+        while (programStatus) {
+            Order order = new Order();
             System.out.println("Print client Name: ");
             String clientName = scn.nextLine();
             System.out.println("Print client Surname: ");
@@ -78,19 +78,20 @@ public class TerminalInterface {
 
                 }catch(SetSeatBusyException e){
                     e.printStackTrace();//виводить System.err
+
                     continue;
 
                 }
                 break;
             }
-            order = new Order(sch.session.get(sesNumber).getFilmName(), sch.session.get(sesNumber).getSessionNumber(),
+            order.createOrder(sch.session.get(sesNumber).getFilmName(), sch.session.get(sesNumber).getSessionNumber(),
                     sch.session.get(sesNumber).getDate(), sch.session.get(sesNumber).getFilmStartTime(), sch.session.get(sesNumber).getFilmDuration(),
                     sch.session.get(sesNumber).getOrderPrice(), rowInt, numInt, cashier.getName(), cashier.getSurname(),
                     client.getName(), client.getSurname());
             order.writeOrderToList();
             client.setId(order.getOrderID());
 
-            close();
+            //close();
         }
 
         scn.close();

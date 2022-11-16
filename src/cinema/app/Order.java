@@ -69,23 +69,8 @@ public class Order  {
      */
     private String path = "resourses/orders/orders.txt";
 
-    /**
-     *
-     * Конструктор об'єкту класу Order в якому ми вираховуємо ID квитка та ініціалізуємо наступні поля:
-     * @param filmName назва фільму
-     * @param sessionNumber номер сесії
-     * @param startDate дата початку фільму
-     * @param filmStartTime час старту фільму
-     * @param filmDuration тривалість фільму
-     * @param orderPrice ціна квитка на фільм
-     * @param rowNumber значення ряду в якому знаходиться крісло
-     * @param placeNumber номер місця у ряду в якому знаходиться крісло
-     * @param clientName ім'я клієнта
-     * @param clientSurname прізвище клієнта
-     * @param cashierName ім'я касира
-     * @param cashierSurname прізвище касира
-     */
-    Order(String filmName, int sessionNumber, String startDate, double filmStartTime, double filmDuration,
+
+    void createOrder(String filmName, int sessionNumber, String startDate, double filmStartTime, double filmDuration,
           int orderPrice, int rowNumber, int placeNumber, String clientName, String clientSurname, String cashierName, String cashierSurname) throws IOException {
 
         this.filmName = filmName;
@@ -126,6 +111,8 @@ public class Order  {
      */
     public void writeOrderToList(){
         try {
+
+
             PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(path, true))); // true добавит новые данные
             out.println(filmName + " " + sessionNumber + " " + startDate + " " + filmStartTime + " " + filmDuration
             + " " + orderPrice + " " + rowNumber + " " + placeNumber + " " + clientName + " " + clientSurname + " " +

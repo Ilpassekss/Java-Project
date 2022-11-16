@@ -43,12 +43,26 @@ public class Hall{
     public Hall(int hallSessionNumber) throws FileNotFoundException {
         this.hallSessionNumber = hallSessionNumber;
         switch (this.hallSessionNumber) {
-            case (1) -> this.path = "resourses/hall_1/hall_Session_1.txt";
-            case (2) -> this.path = "resourses/hall_1/hall_Session_2.txt";
-            case (3) -> this.path = "resourses/hall_1/hall_Session_3.txt";
-            case (4) -> this.path = "resourses/hall_1/hall_Session_4.txt";
-            case (5) -> this.path = "resourses/hall_1/hall_Session_5.txt";
-            case (6) -> this.path = "resourses/hall_1/hall_Session_6.txt";
+            case (1) -> this.path = "resourses/hall_1/hall_Session_1.csv";
+            case (2) -> this.path = "resourses/hall_1/hall_Session_2.csv";
+            case (3) -> this.path = "resourses/hall_1/hall_Session_3.csv";
+            case (4) -> this.path = "resourses/hall_1/hall_Session_4.csv";
+            case (5) -> this.path = "resourses/hall_1/hall_Session_5.csv";
+            case (6) -> this.path = "resourses/hall_1/hall_Session_6.csv";
+        }
+        initSeats();
+    }
+    Hall(){}
+
+    public void hall(int hallSessionNumber) throws FileNotFoundException {
+        this.hallSessionNumber = hallSessionNumber;
+        switch (this.hallSessionNumber) {
+            case (1) -> this.path = "resourses/hall_1/hall_Session_1.csv";
+            case (2) -> this.path = "resourses/hall_1/hall_Session_2.csv";
+            case (3) -> this.path = "resourses/hall_1/hall_Session_3.csv";
+            case (4) -> this.path = "resourses/hall_1/hall_Session_4.csv";
+            case (5) -> this.path = "resourses/hall_1/hall_Session_5.csv";
+            case (6) -> this.path = "resourses/hall_1/hall_Session_6.csv";
         }
         initSeats();
     }
@@ -73,7 +87,7 @@ public class Hall{
             ArrayList<String[]> nums = new ArrayList<>();
 
             while (scn.hasNext()) {
-                nums.add(scn.nextLine().split(" "));
+                nums.add(scn.nextLine().split(";"));
             }
 
             int columns = nums.get(0).length;
@@ -102,7 +116,7 @@ public class Hall{
                 if(i>0) pw.println("");
 
                 for(int j=0; j<numberOfSeats; j++){
-                    pw.print(arr[i][j]+" ");
+                    pw.print(arr[i][j]+";");
                 }
             }
             pw.close();
@@ -128,7 +142,7 @@ public class Hall{
             ArrayList<String[]> nums = new ArrayList<>();
 
             while (scn.hasNext()) {
-                nums.add(scn.nextLine().split(" "));
+                nums.add(scn.nextLine().split(";"));
             }
 
             int columns = nums.get(0).length;
@@ -168,7 +182,7 @@ public class Hall{
             ArrayList<String[]> nums = new ArrayList<>();
 
             while (scn.hasNext()) {
-                nums.add(scn.nextLine().split(" "));
+                nums.add(scn.nextLine().split(";"));
             }
 
             int columns = nums.get(0).length;
@@ -182,7 +196,7 @@ public class Hall{
             }
 
     try {
-        for (int i = 0; i < rows+1; i++) {
+        for (int i = 0; i < rows; i++) {
             for (int j = 0; j < numberOfSeats; j++) {
 
                 if (arr[i][j] == 1) {
@@ -196,7 +210,7 @@ public class Hall{
             }
         }
     }catch (ArrayIndexOutOfBoundsException e){
-        System.err.println("Invalid array index");
+        System.err.println("Something went wrong: " + e + "межі масиву від 0 " + seat.length);
     }
 
         scn.close();

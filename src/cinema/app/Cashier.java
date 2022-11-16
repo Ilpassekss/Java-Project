@@ -41,6 +41,10 @@ public class Cashier extends Person implements Cloneable {
         this.adress = adress;
     }
 
+    public Cashier(String name, String surname) {
+        super(name, surname);
+
+    }
 
     @Override
     public boolean equal(Object obj) {

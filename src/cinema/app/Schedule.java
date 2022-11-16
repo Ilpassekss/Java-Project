@@ -13,7 +13,7 @@ public class Schedule implements Cloneable{
     /**
      * Поле напрямку до файлу у якому ми зберігаємо всі дані про сесії залу
      */
-    String path = "resourses/sheldue/scheldue.txt";
+    String path = "resourses/sheldue/scheldue.csv";
 
 
 
@@ -35,7 +35,7 @@ public class Schedule implements Cloneable{
             ArrayList<String[]> nums = new ArrayList<>();
 
             while (scn.hasNext()) {
-                nums.add(scn.nextLine().split(" "));
+                nums.add(scn.nextLine().split(";"));
             }
 
             int columns = nums.get(0).length;
@@ -79,7 +79,7 @@ public class Schedule implements Cloneable{
             ArrayList<String[]> nums = new ArrayList<>();
 
             while (scn.hasNext()) {
-                nums.add(scn.nextLine().split(" "));
+                nums.add(scn.nextLine().split(";"));
             }
 
             int columns = nums.get(0).length;
