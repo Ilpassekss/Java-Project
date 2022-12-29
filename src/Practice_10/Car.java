@@ -29,4 +29,6 @@ public class Car implements Nameable, Transport{
     public void setClassName(String className) {
         this.className = className;
     }
+
+
 }

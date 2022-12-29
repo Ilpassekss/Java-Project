@@ -1,5 +1,7 @@
 package exeption;
 
+import Practice_10.Nameable;
+
 public class SetSeatBusyException extends RuntimeException{
     private boolean busyStatus;
     public boolean getBusyStatus(){return  busyStatus;}

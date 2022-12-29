@@ -2,7 +2,7 @@ package cinema.app;
 /**
  *  абстрактний клас людини
  */
-public abstract class Person {
+public abstract class Person extends Order {
     /**
      *  поле з іменем людини
      */

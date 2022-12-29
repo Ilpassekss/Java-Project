@@ -7,7 +7,7 @@ import java.util.*;
 /**
  *клас Сессії кінотеатру
  */
-public class Session implements Serializable, Cloneable{
+public class Session extends Schedule implements Serializable, Cloneable{
     //info for date
     /**
      * Поле номеру сесії
@@ -149,7 +149,16 @@ public class Session implements Serializable, Cloneable{
     /**
      * Стандартне перевизначення функції клонування
      */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Session session = (Session) o;
+        return sessionNumber == session.sessionNumber && Double.compare(session.filmStartTime, filmStartTime) == 0 && Double.compare(session.filmDuration, filmDuration) == 0 && orderPrice == session.orderPrice && numberOfClients == session.numberOfClients && sessionID == session.sessionID && Objects.equals(filmName, session.filmName) && Objects.equals(date, session.date) && Objects.equals(cashier, session.cashier);
+    }
 
-
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(sessionNumber, filmName, date, filmStartTime, filmDuration, orderPrice, numberOfClients, sessionID, cashier);
+    }
 }
